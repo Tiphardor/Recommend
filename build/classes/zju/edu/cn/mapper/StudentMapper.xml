@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zju.edu.cn.mapper.StudentMapper" >
+	<insert id="insertStudent" parameterType="student">
+		insert into t_student(studentId,studentName,major,courseName,courseCode,courseCredit,courseType,
+		      courseScale,courseGrade,averageGrade,rate) value(#{studentId},#{studentName},#{major},#{courseName},
+		      #{courseCode},#{courseCredit},#{courseType},#{courseScale},#{courseGrade},#{averageGrade},#{rate}) 
+	</insert>
+	
+	<insert id="insertAveGrade" parameterType="aveGrade">
+		insert into t_avegrade(studentId,studentName,averageGrade,major,password) value(#{studentId},#{studentName},#{averageGrade},#{major},#{password})
+	</insert>
+	
+	<select id="findStudentByNameAndCourse" parameterType="studentCustom" resultType="java.lang.Integer">
+		select tableId from t_student where studentId = #{studentId} and courseName = #{courseName}
+	</select>
+	
+	<update id="updateStudent" parameterType="student">
+		update t_student set courseGrade = #{courseGrade} where studentId = #{studentId} and courseName = #{courseName}
+	</update>
+	
+	<select id="findStudentBystudentId" parameterType="java.lang.String" resultType="student">
+		select * from t_student where studentId = #{studentId}
+	</select>
+	
+	<update id="updateAveGrade" parameterType="aveGrade">
+		update t_avegrade set averageGrade = #{averageGrade},rate = #{rate},major = #{major} where studentId = #{studentId}
+	</update>
+	
+	<select id="findAveGradeByStudentId" parameterType="aveGrade" resultType="java.lang.Integer">
+		select studentId from t_avegrade where studentId = #{studentId}
+	</select>
+	
+	<select id="findAveGradeByMajor" parameterType="java.lang.String" resultType="aveGrade">
+		select * from t_avegrade where major = #{major}
+	</select>
+	
+	<select id="loginStudent" parameterType="aveGrade" resultType="aveGrade">
+		select * from t_avegrade where studentId = #{studentId} and password = #{password}
+	</select>
+	
+	<select id="findAveGradeByMajorOrderBy" parameterType="majorOrder" resultType="aveGrade">
+		select * from t_avegrade 
+		<where>
+			major = #{major} 
+			<if test="type == '学号'">
+				order by studentId
+			</if>
+			<if test="type == '名次'">
+				order by rate
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAveGradeById" parameterType="java.lang.String" resultType="aveGrade">
+		select * from t_avegrade where studentId = #{studentId}
+	</select>
+</mapper>

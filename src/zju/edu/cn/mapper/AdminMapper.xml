@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zju.edu.cn.mapper.AdminMapper" >
+	<select id="findAdmin" parameterType="admin" resultType="admin">
+		select * from t_admin where adminId = #{adminId} and password = #{password}
+	</select>
+</mapper>
