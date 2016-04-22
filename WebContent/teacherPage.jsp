@@ -16,6 +16,10 @@
 <body>
 <script type="text/javascript">
 
+$(document).ready(function(){
+	$("#modal").addClass("hidden");
+});
+
 function uploadFileAjax(){
 	//判断是否有选择上传文件
     var imgPath = $("#uploadFile").val();
@@ -68,7 +72,7 @@ function exportExcel(){
 	
 
 	function uploadFileSubmit() {
-    //判断是否有选择上传文件
+    	//判断是否有选择上传文件
         var imgPath = $("#uploadFile").val();
         if (imgPath == "") {
             alert("请选择上传文件！");
@@ -80,6 +84,7 @@ function exportExcel(){
             alert("请选择excel文件");
             return false;
         }
+    	$("#modal").removeClass("hidden");
     }
     
     function findInfo(){
@@ -133,6 +138,7 @@ function exportExcel(){
 
 <c:if test="${resultCode != null}">
 	<script type="text/javascript">
+		$("#modal").addClass("hidden");
 		alert("${resultCode}");
 	</script>
 </c:if>
@@ -140,14 +146,8 @@ function exportExcel(){
 <div id="modal" class="hidden">
     <div id="myModal"></div>
     <div class="modalDialog">
-        <div class="modal-header">
-            <button type="button" class="close-icon"><span>×</span></button>
-        </div>
         <div class="modal-body">
             <h4>文件正在上传,请耐心等待......</h4>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="close-btn">关闭</button>
         </div>
     </div>
 </div>
@@ -156,7 +156,7 @@ function exportExcel(){
     <div class="import">
     <form action="/Recommend/file/upload.action" method="post" enctype="multipart/form-data">
 	<input type="file" id="uploadFile" name="uploadFile">
-  	<input type="submit" id="theButton"  class='outport-btn' value="导入" onclick="return uploadFileSubmit()"/>
+  	<input type="submit" id="submitButton"  class='import-btn' value="导入" onclick="return uploadFileSubmit()"/>
   	<div class="import-result">
     	<span class="import-success unvisible">文件导入成功</span>
         <span class="import-error unvisible">文件导入失败</span>
@@ -191,12 +191,46 @@ function exportExcel(){
             </div>
         </div>
         <div class="table" id="table">
-           
+           <c:if test="${aveGradeList != null}">
+        	<h3><span class='table-title'>${majorName}</span>加权学分信息表</h3>
+        	<input type='hidden' id='exportMajor' value="${majorName}"></input>
+        	<div>
+        		<table class="table-body">
+        			 <tr>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>加权学分</th>
+                        <th>排名</th>
+                        <th>查看详细</th>
+                    </tr>
+            <c:forEach items="${aveGradeList}" var="aveGrade">
+                <tr>
+                    <td>${aveGrade.studentId}</td>
+                    <td>${aveGrade.studentName}</td>
+                    <td>${aveGrade.averageGrade}</td>
+                    <td>${aveGrade.rate}</td>
+                    <td>
+                       <a href="/Recommend/student/findDetailStudent.action?studentId=${aveGrade.studentId}">查看详细</a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </table>
+        	</div>
+        	<div style='text-align: right;width: 80%;margin: 0 auto;border-bottom: 1px solid black;'><input type='button' value='导出' onclick='return exportExcel()' class='outport-btn' /></div>
+        	</c:if>
         </div>
         
         <div class="illustration">
             <h3>说明：</h3>
-            <div class="illustration-detail">本表计划规则</div>
+            <div class="illustration-detail">本表计划规则
+            	<ul>
+            		<li>上传文件必须是.xls或者.xlsx结尾的不带有文本性质的excel文件</li>
+            		<li>文件中字段不要有多余的空格</li>
+            		<li>列依次为学号、姓名、专业、课程1、课程2、……</li>
+            		<li>课程列顺序：课程编号、课程名、学分</li>
+            	</ul>
+            	<img src="/Recommend/img/show.jpg" width="500dp" height="90dp" />
+            </div>
         </div>
     </div>
 </div>

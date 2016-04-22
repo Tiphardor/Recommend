@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import zju.edu.cn.exception.CustomException;
+import zju.edu.cn.po.AveGrade;
 import zju.edu.cn.po.Student;
 import zju.edu.cn.service.StudentService;
+import zju.edu.cn.util.ConstantUtil;
 import zju.edu.cn.util.ExcelUtil;
 
 @Controller
@@ -32,13 +34,13 @@ public class FileUpdateController {
 	@RequestMapping(value="/upload.action",method=RequestMethod.POST)
 	public String upload(MultipartFile uploadFile,Model model,HttpServletResponse response) throws CustomException {	
 		//String pic_path="/mnt/tomcat/sur/";
-		String pic_path = "/Users/hardor/Desktop/picture/";
+		//String pic_path = "/Users/hardor/Desktop/picture/";
 		if(uploadFile != null){
 			String uploadFileName = uploadFile.getOriginalFilename();
 			System.out.println(uploadFileName);
 			String newUploadFileName = UUID.randomUUID() + uploadFileName.substring(uploadFileName.lastIndexOf('.'));
 //			新图片
-			File newFile = new File(pic_path + newUploadFileName);
+			File newFile = new File(ConstantUtil.PIC_PATH + newUploadFileName);
 //			将内存中的数据写入磁盘
 			System.out.println(uploadFileName);
 			try {
@@ -73,6 +75,11 @@ public class FileUpdateController {
 			}
 		}
 		model.addAttribute("resultCode", "文件上传成功");
+		if(ConstantUtil.MAJOR_NAME != null){
+			List<AveGrade> AveGradeList = studentService.findMajorStudent(ConstantUtil.MAJOR_NAME, "学号");
+			model.addAttribute("majorName",ConstantUtil.MAJOR_NAME);
+			model.addAttribute("aveGradeList", AveGradeList);
+		}
 		return "teacherPage";
 	}
 }

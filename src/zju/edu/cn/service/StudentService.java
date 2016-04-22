@@ -13,4 +13,5 @@ public interface StudentService {
 	public StudentDetailView findStudentDetailByStudentId(String studentId);
 	public List<AveGrade> findMajorStudent(String major,String type);
 	public AveGrade findStudentById(String studentId);
+	public Integer updatePassword(String studentId,String oldPassword,String newPassword);
 }

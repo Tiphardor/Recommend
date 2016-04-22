@@ -189,4 +189,19 @@ public class StudentServiceImpl implements StudentService{
 		AveGrade aveGrade = studentMapper.findAveGradeById(studentId);
 		return aveGrade;
 	}
+
+	@Override
+	public Integer updatePassword(String studentId, String oldPassword, String newPassword) {
+		// TODO Auto-generated method stub
+		AveGrade aveGrade = findStudentByIdAndPass(studentId,oldPassword);
+		if(aveGrade == null){
+			return 0;
+		}else{
+			AveGrade new_AveGrade = new AveGrade();
+			new_AveGrade.setStudentId(studentId);
+			new_AveGrade.setPassword(newPassword);
+			studentMapper.updatePassword(new_AveGrade);
+			return 1;
+		}
+	}
 }

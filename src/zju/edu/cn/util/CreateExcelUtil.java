@@ -13,7 +13,6 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import zju.edu.cn.po.AveGrade;
 
 public class CreateExcelUtil {
-	@SuppressWarnings("deprecation")
 	public static String createExcelFile(List<AveGrade>  aveGradeList){
 		String fileName = null;
 		HSSFWorkbook wb = new HSSFWorkbook();
@@ -50,10 +49,12 @@ public class CreateExcelUtil {
         } 
         FileOutputStream fout;
 		try {
-			fout = new FileOutputStream("/mnt/tomcat/sur/"+fileName+".xls");
+			fout = new FileOutputStream(ConstantUtil.PIC_PATH+fileName+".xls");
 			wb.write(fout);  
 		    fout.close();
-		    return "/mnt/tomcat/sur/"+fileName+".xls";
+		    wb.close();
+		    //return "/mnt/tomcat/sur/"+fileName+".xls";
+		    return ConstantUtil.PIC_PATH+fileName+".xls";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

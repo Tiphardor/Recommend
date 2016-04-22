@@ -55,4 +55,8 @@
 	<select id="findAveGradeById" parameterType="java.lang.String" resultType="aveGrade">
 		select * from t_avegrade where studentId = #{studentId}
 	</select>
+	
+	<update id="updatePassword" parameterType="aveGrade" >
+		update t_avegrade set password = #{password} where studentId = #{studentId}
+	</update>
 </mapper>

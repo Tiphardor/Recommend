@@ -62,8 +62,10 @@ public class ExcelUtil {
                 	 			conStudent.setStudentCode(cellValue);
                 	 		if(c == 1)
                 	 			conStudent.setStudentName(cellValue);
-                	 		if(c == 2)
+                	 		if(c == 2){
                 	 			conStudent.setMajor(cellValue);
+                	 			ConstantUtil.MAJOR_NAME = cellValue;
+                	 		}
                 	 		break;
                 	 	case Cell.CELL_TYPE_NUMERIC: //数字
                 	 		if(c == 0){

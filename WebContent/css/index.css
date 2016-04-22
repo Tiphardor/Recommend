@@ -117,13 +117,19 @@ header {
 .logout {
     position: absolute;
     bottom: 0;
+    right: 100px;
+    color: white;
+}
+.updatepass{
+    position: absolute;
+    bottom: 0;
     right: 20px;
     color: white;
 }
 .import {
     padding-bottom: 30px;
 }
-#btnUpload,.outport-btn,.select-btn {
+#btnUpload,.import-btn,.select-btn,.outport-btn {
     text-align: center;
     padding: 5px 30px;
     margin-right: 20px;

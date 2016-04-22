@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import zju.edu.cn.po.Admin;
 import zju.edu.cn.po.AveGrade;
@@ -38,7 +40,16 @@ public class StudentController {
 	private AdminService adminService;
 	
 	@RequestMapping(value="/login.action",method=RequestMethod.POST)
-	public String login(String studentId,String password,Integer type,Model model,HttpSession session){
+	public String login(String studentId,String password,Integer type,Model model,HttpSession session,HttpServletRequest request){
+		if(type == null){
+			type = (Integer)request.getAttribute("type");
+		}
+		if(studentId == null){
+			studentId = (String)request.getAttribute("studentId");
+		}
+		if(password == null){
+			password = (String)request.getAttribute("password");
+		}
 		if(type == 1){
 			AveGrade aveGrade = studentService.findStudentByIdAndPass(studentId, password);
 			if(aveGrade != null){
@@ -129,6 +140,20 @@ public class StudentController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}		
+		}
+	}
+	
+	@RequestMapping(value="/updateStudentPassword.action",method=RequestMethod.POST)
+	public String updateStudentPassword(String studentId,String oldPassword,String newPassword,Model model,HttpServletRequest request){
+		Integer result = studentService.updatePassword(studentId,oldPassword,newPassword);
+		if(result == 0){
+			model.addAttribute("resultCode", "原密码不正确");
+			return "updatePassPage";
+		}else{
+			request.setAttribute("studentId", studentId);
+			request.setAttribute("password", newPassword);
+			request.setAttribute("type", 1);
+			return "forward:login.action";
 		}
 	}
 }

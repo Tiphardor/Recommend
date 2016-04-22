@@ -19,4 +19,5 @@ public interface StudentMapper {
 	public AveGrade loginStudent(AveGrade aveGrade);
 	public List<AveGrade> findAveGradeByMajorOrderBy(MajorOrder mo);
 	public AveGrade findAveGradeById(String studentId);
+	public void updatePassword(AveGrade aveGrade);
 }

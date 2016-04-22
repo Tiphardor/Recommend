@@ -14,6 +14,7 @@
     <header>
         <h1>软件学院评选评优管理</h1>
         <a class="logout" href="/Recommend/student/logout.action?studentId=${sdv.studentId}">注&nbsp;&nbsp;销</a>
+        <a class="updatepass" href="/Recommend/updatePassPage.jsp?studentId=${sdv.studentId}">修改密码</a>
     </header>
     <div class="page-body">
         <div class="person-message">
