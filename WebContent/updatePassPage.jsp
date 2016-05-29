@@ -5,10 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="/Recommend/css/index.css"/>
 <script src="/Recommend/js/jquery-2.1.4.min.js" type="text/javascript"></script>
 <title>修改密码</title>
 </head>
 <body>
+<header>
+        <h1>软件学院评选评优管理</h1>
+    </header>
 <script type="text/javascript">
 	function check(){
 		var oldPassword = $("#oldPassword").val();
@@ -34,12 +38,14 @@
 		alert("${resultCode}");
 	</script>
 </c:if>
+<div align="center">
 <form action="/Recommend/student/updateStudentPassword.action" method="post">
 	<input type="hidden" value="${studentId}" name="studentId" />
-	原密码：<input type="password" name="oldPassword" id="oldPassword"/><br />
-	新密码：<input type="password" name="newPassword" id="newPassword"/><br />
-	重复密码：<input type="password" name="rePassword" id="rePassword"/><br />
-	<input type="submit" value="修改密码" onclick="return check()"/>
+	<p> 原密码：<input class="number" type="password" name="oldPassword" id="oldPassword"/></p>
+	<p> 新密码：<input class="number" type="password" name="newPassword" id="newPassword"/></p>
+	<p>重复密码：<input class="number" type="password" name="rePassword" id="rePassword"/></p>
+	<input type="submit" value="修改密码" onclick="return check()" class="outport-btn"/>
 </form>
+</div>
 </body>
 </html>

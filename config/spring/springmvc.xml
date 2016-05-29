@@ -17,7 +17,7 @@
 		
 		<!--定义处理器映射器的扫描包  -->
 		<context:component-scan base-package="zju.edu.cn.controller"></context:component-scan>
-		
+		<context:component-scan base-package="zju.edu.cn.mobile.controller"></context:component-scan>
 		<!-- 这里使用注解的处理器适配器和处理器映射器 -->
 		<mvc:annotation-driven > </mvc:annotation-driven>
 		

@@ -1,14 +1,21 @@
 package zju.edu.cn.util;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class StudentDetailView {
+public class StudentDetailView implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private String studentId;
 	private String studentName;
 	private String major;
 	private List<CourseType> compulsory;
 	private List<CourseType> degree;
-
+	private Float averageGrade;
+	private Integer rate;
+	private String resultCode;
+	
 	public String getStudentId() {
 		return studentId;
 	}
@@ -39,4 +46,23 @@ public class StudentDetailView {
 	public void setDegree(List<CourseType> degree) {
 		this.degree = degree;
 	}
+	public Float getAverageGrade() {
+		return averageGrade;
+	}
+	public void setAverageGrade(Float averageGrade) {
+		this.averageGrade = averageGrade;
+	}
+	public Integer getRate() {
+		return rate;
+	}
+	public void setRate(Integer rate) {
+		this.rate = rate;
+	}
+	public String getResultCode() {
+		return resultCode;
+	}
+	public void setResultCode(String resultCode) {
+		this.resultCode = resultCode;
+	}
+	
 }
